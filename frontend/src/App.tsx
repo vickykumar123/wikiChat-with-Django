@@ -5,6 +5,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from "./pages/Home";
+import {ThemeProvider} from "@mui/material";
+import {createMuiTheme} from "./theme/theme";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -15,7 +17,11 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider theme={createMuiTheme}>
+      <RouterProvider router={router} />;
+    </ThemeProvider>
+  );
 }
 
 export default App;
