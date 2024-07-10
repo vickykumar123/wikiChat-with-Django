@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError, AuthenticationFailed
+from rest_framework.permissions import IsAuthenticated
 from django.db.models import Count
 
 from .models import Server
@@ -9,6 +10,7 @@ from .serializer import ServerSerializer
 
 class ServerListViewSet(viewsets.ViewSet):
     queryset = Server.objects.all()
+    permission_classes = [IsAuthenticated]
     def list(self,request):
         category = request.query_params.get("category")
         qty = request.query_params.get('qty')
