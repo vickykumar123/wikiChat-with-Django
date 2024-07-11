@@ -10,7 +10,7 @@ from .serializer import ServerSerializer
 
 class ServerListViewSet(viewsets.ViewSet):
     queryset = Server.objects.all()
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     def list(self,request):
         category = request.query_params.get("category")
         qty = request.query_params.get('qty')

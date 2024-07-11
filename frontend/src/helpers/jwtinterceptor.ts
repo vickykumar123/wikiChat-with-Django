@@ -14,9 +14,9 @@ const useAxiosWithInterceptor = (): AxiosInstance => {
     },
     async (error) => {
       const orginialRequest = error.config;
-      if (error.response.status === 403) {
-        navigate("/test");
-      }
+      // if (error.response.status === 403) {
+      //   navigate("/test");
+      // }
       throw error;
     }
   );

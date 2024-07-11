@@ -1,16 +1,18 @@
-import {
-  Box,
-  Drawer,
-  styled,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import {useEffect, useState} from "react";
+import {Box, styled, useMediaQuery, useTheme} from "@mui/material";
+import React, {useEffect, useState} from "react";
 import DrawToggle from "../../components/PrimaryDraw/DrawToggle";
 import MuiDrawer from "@mui/material/Drawer";
 
-export default function PrimaryAppDraw() {
+type Props = {
+  children: React.ReactNode;
+};
+
+type ChildProps = {
+  open: boolean;
+};
+
+type ChildElement = React.ReactElement<ChildProps>;
+export default function PrimaryAppDraw({children}: Props) {
   const theme = useTheme();
   const below600 = useMediaQuery("(max-width:599px)");
   const [open, setOpen] = useState(below600);
@@ -85,12 +87,12 @@ export default function PrimaryAppDraw() {
             handleDrawerOpen={handleDrawerOpen}
             handleDrawerClose={handleDrawerClose}
           />
-          {[...Array(50)].map((_, i) => (
-            <Typography key={i} paragraph>
-              {i + 1}
-            </Typography>
-          ))}
         </Box>
+        {React.Children.map(children, (child) => {
+          return React.isValidElement(child)
+            ? React.cloneElement(child as ChildElement, {open})
+            : child;
+        })}
       </Box>
     </Drawer>
   );
